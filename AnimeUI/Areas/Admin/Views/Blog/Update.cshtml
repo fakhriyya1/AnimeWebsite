@@ -1,0 +1,70 @@
+﻿@model UpdateBlogDto
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Update Blog</h4>
+                <div class="basic-form">
+                    <form method="post" asp-controller="Blog" asp-action="Update" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <input asp-for="Id" type="hidden" />
+                        <input asp-for="ImageUrl" type="hidden" />
+                        <div class="form-group">
+                            <label asp-for="ImageUrl">Blog Image</label>
+                            <img src="~/images/@Model.ImageUrl" style="width:300px; height:fit-content" class="form-control" alt="@Model.Title" />
+                            <span asp-validation-for="Title" class="text-danger validation"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Title">Title</label>
+                            <input asp-for="Title" type="text" class="form-control input-flat" placeholder="Title">
+                            <span asp-validation-for="Title" class="text-danger validation"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Photo">Photo</label>
+                            <input asp-for="Photo" type="file" class="form-control input-flat" accept="image/*">
+                            <span asp-validation-for="Photo" class="text-danger validation"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SelectedCategories">Categories</label>
+                            <select asp-for="SelectedCategories" multiple="multiple" class="form-control js-example-basic-multiple">
+                                @foreach (var item in Model.Categories)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Categories" class="text-danger" ></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Content">Content</label>
+                            <input asp-for="Content" type="text" class="form-control input-flat" placeholder="Content">
+                            <span asp-validation-for="Content" class="text-danger validation" ></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+}
+
